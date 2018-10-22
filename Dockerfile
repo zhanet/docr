@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 MAINTAINER zhanet "zhanet@163.com"
 
-RUN apt-get update -qq
-&& apt-get install -y python3 tesseract-ocr openssh-server \
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update -qq && apt-get install -y git python3 tesseract-ocr openssh-server \
 && mkdir /var/run/sshd && mkdir /root/.ssh \
 && echo "root:ubuntu" | chpasswd \
 && sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -11,4 +12,9 @@ RUN apt-get update -qq
 && apt-get clean && apt-get autoclean
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["/usr/sbin/sshd", "-D"]
+
+COPY ./scripts/c*.sh /home/
+RUN chmod +x /home/c*.sh
+RUN /home/clone.sh
+CMD ["/home/cstart.sh"]
