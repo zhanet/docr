@@ -3,7 +3,7 @@ MAINTAINER zhanet "zhanet@163.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq && apt-get install -y git python3 tesseract-ocr openssh-server \
+RUN apt-get update -qq && apt-get install -y git wget python3 tesseract-ocr openssh-server \
 && mkdir /var/run/sshd && mkdir /root/.ssh \
 && echo "root:ubuntu" | chpasswd \
 && sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
