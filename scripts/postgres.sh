@@ -3,27 +3,27 @@
 mkdir ~/postgres
 cd ~/postgres
 
-docker volume create --driver local --name=pgvolume
-docker volume create --driver local --name=pga4volume
-
-docker network create --driver bridge pgnetwork
-
 cat << EOF > pg-env.list
 PG_MODE=primary
-PG_PRIMARY_USER=postgres
-PG_PRIMARY_PASSWORD=postgres
+PG_PRIMARY_USER=pgmaster
+PG_PRIMARY_PASSWORD=pgmaster
 PG_DATABASE=testdb
-PG_USER=pguser
-PG_PASSWORD=pguser
-PG_ROOT_PASSWORD=root
+PG_USER=testuser
+PG_PASSWORD=testuser
+PG_ROOT_PASSWORD=postgres
 PG_PRIMARY_PORT=5432
 EOF
 
 cat << EOF > pgadmin-env.list
 PGADMIN_SETUP_EMAIL=pgadmin@pgadmin.org
-PGADMIN_SETUP_PASSWORD=admin
+PGADMIN_SETUP_PASSWORD=pgadmin
 SERVER_PORT=5050
 EOF
+
+docker volume create --driver local --name=pgvolume
+docker volume create --driver local --name=pga4volume
+
+docker network create --driver bridge pgnetwork
 
 docker run --publish 5432:5432 \
   --volume=pgvolume:/pgdata \
