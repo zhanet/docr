@@ -1,9 +1,8 @@
 FROM ubuntu:18.04
 MAINTAINER zhanet "zhanet@163.com"
 
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update -qq && apt-get install -y git wget python3 tesseract-ocr openssh-server \
+RUN apt-get update -qq && apt-get install -yq \
+git wget python3 openssh-server tesseract-ocr tesseract-ocr-chi-sim \
 && mkdir /var/run/sshd && mkdir /root/.ssh \
 && echo "root:ubuntu" | chpasswd \
 && sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -11,10 +10,10 @@ RUN apt-get update -qq && apt-get install -y git wget python3 tesseract-ocr open
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && apt-get clean && apt-get autoclean
 
-EXPOSE 22
-# CMD ["/usr/sbin/sshd", "-D"]
+ENV WORKDIR /root
+COPY ./scripts/c*.sh $WORKDIR/
+RUN chmod +x $WORKDIR/c*.sh
+RUN $WORKDIR/clone.sh
 
-COPY ./scripts/c*.sh /home/
-RUN chmod +x /home/c*.sh
-RUN /home/clone.sh
-CMD ["/home/cstart.sh"]
+EXPOSE 22
+CMD ["/root/cstart.sh"]
