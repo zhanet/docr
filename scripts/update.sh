@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec -it docr /home/cupdate.sh
+docker exec -it docr /root/cupdate.sh

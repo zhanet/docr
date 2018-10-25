@@ -1,2 +1,2 @@
 #!/bin/bash
-git clone https://github.com/zhanet/wedocr.git /home/wedocr
+git clone https://github.com/zhanet/wedocr.git /root/wedocr
