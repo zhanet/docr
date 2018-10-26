@@ -5,6 +5,9 @@ import yaml
 import sys
 import os
 
+import importlib
+importlib.reload(sys)
+
 try:
     dir_path = os.path.dirname(os.path.realpath(__file__))
     config = yaml.load(open(dir_path + '/config.yaml'))
