@@ -4,9 +4,9 @@ import psycopg2
 import yaml
 
 try:
-    config = yaml.load(file(os.getcwd() + '/config.yaml', 'r'))
-except yaml.YAMLError, e:
-    print "Error in configuration file: ", e
+    config = yaml.load(open('config.yml'))
+except yaml.YAMLError as exc:
+    print(exc)
     sys.exit(1)
 
 try:
@@ -18,7 +18,11 @@ try:
         port="5432"
     )
     cursor = conn.cursor()
-    cursor.execute("""CREATE TABLE ocr_results (name char(40));""")
+    cursor.execute("""
+    CREATE TABLE ocr_results (
+        id serial, filename text, result text,
+        created timestamp DEFAULT current_timestamp
+    );""")
     cursor.execute("""SELECT * from ocr_results""")
     rows = cursor.fetchall()
     print(rows)
