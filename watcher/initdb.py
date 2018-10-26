@@ -8,8 +8,8 @@ import os
 try:
     dir_path = os.path.dirname(os.path.realpath(__file__))
     config = yaml.load(open(dir_path + '/config.yaml'))
-except yaml.YAMLError as exc:
-    print(exc)
+except yaml.YAMLError as e:
+    print(e)
     sys.exit(1)
 
 try:
@@ -22,12 +22,12 @@ try:
     )
     cursor = conn.cursor()
     cursor.execute("""
-    CREATE TABLE ocr_results (
+    CREATE TABLE IF NOT EXISTS ocr_results (
         id serial, filename text, result text,
         created timestamp DEFAULT current_timestamp
     );""")
     cursor.execute("""INSERT INTO ocr_results (filename, result)
-    VALUES ('docr', 'hello world!');""")
+    VALUES ('docr', 'hello world!'), ('美食家', '舌尖上的中国');""")
     cursor.execute("""SELECT * from ocr_results""")
     rows = cursor.fetchall()
     print(rows)
