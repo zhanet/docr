@@ -1,0 +1,4 @@
+#!/bin/bash
+git clone https://github.com/zhanet/docr.git $WORKDIR/code
+echo -e "export PATH=\"${WORKDIR}:$PATH\"">> ~/.profile
+pip3 install psycopg2
