@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /root/wedocr
+cd /root/docr
 git pull origin master
