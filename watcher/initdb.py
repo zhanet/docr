@@ -2,10 +2,12 @@
 #-*- coding: utf-8 -*-
 import psycopg2
 import yaml
+import sys
 import os
 
 try:
-    config = yaml.load(open(os.getcwd() + '/config.yaml'))
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    config = yaml.load(open(dir_path + '/config.yaml'))
 except yaml.YAMLError as exc:
     print(exc)
     sys.exit(1)
