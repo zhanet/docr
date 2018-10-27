@@ -7,6 +7,7 @@ import os
 
 import importlib
 importlib.reload(sys)
+sys.setdefaultencoding('utf8')
 
 try:
     dir_path = os.path.dirname(os.path.realpath(__file__))
