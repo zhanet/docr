@@ -14,9 +14,9 @@ openssh-server tesseract-ocr tesseract-ocr-chi-sim \
 ENV WORKDIR /home/docr
 
 WORKDIR $WORKDIR
-COPY ./bin/c* ./
-RUN chmod +x ./c* \
-&& ./cinit
+COPY ./bin/cinit /tmp/
+RUN chmod +x /tmp/cinit \
+&& /tmp/cinit
 
 EXPOSE 22
-CMD ["./cstart"]
+CMD ["./bin/cstart"]
