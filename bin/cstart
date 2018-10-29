@@ -1,8 +1,5 @@
 #!/bin/bash
-
-# Start image upload watcher
-python3 ${WORKDIR}/watcher/initdb.py > initdb.txt
-echo -e "export WORKDIR=\"${WORKDIR}\"" >> ~/.profile
-
+# Run image upload watcher
+python3 ${WORKDIR}/watcher/watcher.py &
 # Run OpenSSH server in daemon mode
 /usr/sbin/sshd -D
