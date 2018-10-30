@@ -1,3 +1,11 @@
 #!/bin/bash
-docker run --name docr -p 33322:22 -d zhanet/docr 2>/dev/null
-ssh root@localhost -p 33322
+cd `dirname $0`/../
+mkdir -p ./ocr/upload
+mkdir -p ./ocr/pics
+
+./bin/postgres
+docker rm -f docr >/dev/null 2>&1
+docker run --name docr --link docr-postgres:postgres \
+-v $PWD/ocr:/ocr-files -p 33322:22 --restart=always \
+-e TZ=Asia/Shanghai \
+-d zhanet/docr

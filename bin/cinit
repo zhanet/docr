@@ -1,4 +1,8 @@
 #!/bin/bash
-git clone https://github.com/zhanet/docr.git $WORKDIR/code
-echo -e "export PATH=\"${WORKDIR}:$PATH\"" >> ~/.profile
-pip3 install psycopg2 -i https://pypi.douban.com/simple
+git clone https://github.com/zhanet/docr.git $WORKDIR
+pip3 install --upgrade pip -i https://pypi.douban.com/simple
+pip install setuptools --upgrade -i https://pypi.douban.com/simple
+pip install psycopg2-binary pyyaml pyinotify -i https://pypi.douban.com/simple
+pip install pyinotify --upgrade -i https://pypi.douban.com/simple
+chmod -x ./bin/* && chmod +x ./bin/c*
+rm -rf ~/.cache/pip
