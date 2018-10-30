@@ -1,9 +1,11 @@
 FROM ubuntu:18.04
-MAINTAINER zhanet "zhanet@163.com"
+MAINTAINER ze <zhanet@163.com>
 
-RUN apt-get update -q && apt-get install -yq \
-git wget python3 python3-pip postgresql-client \
-openssh-server tesseract-ocr tesseract-ocr-chi-sim \
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 WORKDIR=/home/docr
+
+RUN apt-get update -q && apt-get install tzdata && dpkg-reconfigure -f noninteractive tzdata \
+&& apt-get install -yq --no-install-recommends openssh-server python3 python3-pip \
+git wget postgresql-client tesseract-ocr tesseract-ocr-chi-sim \
 && mkdir /var/run/sshd && mkdir /root/.ssh \
 && echo "root:ubuntu" | chpasswd \
 && sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -11,12 +13,9 @@ openssh-server tesseract-ocr tesseract-ocr-chi-sim \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 && apt-get clean && apt-get autoclean
 
-ENV WORKDIR /home/docr
-
 WORKDIR $WORKDIR
-COPY ./bin/cinit /tmp/
-RUN chmod +x /tmp/cinit \
-&& /tmp/cinit
+COPY ./bin/cinit /boot/
+RUN chmod +x /boot/cinit && /boot/cinit
 
 EXPOSE 22
 CMD ["./bin/cstart"]
