@@ -16,5 +16,4 @@ CREATE TABLE docr (
     PRIMARY KEY (id)
 );
 
-INSERT INTO docr (cid, fname, ocr) VALUES 
-(0, 'dOCR', '使用Docker封装的OCR服务');
+-- INSERT INTO docr (cid, fname, ocr) VALUES (0, 'dOCR', '使用Docker封装的OCR服务');
