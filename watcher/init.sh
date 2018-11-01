@@ -25,7 +25,7 @@ confirm() {
 count() {
     ../bin/postgres
     docker exec -it docr-postgres sh -c 'psql -U postgres -c "select count(id) from docr;"' > .count
-    count=`cat .count | grep -m 1 -oE "\s+([0-9]+)\r" | grep -Eo "[0-9]+"` && rm .count
+    count=`cat .count | grep -m 1 -oE "\s+([0-9]+)\r" | grep -Eo "[0-9]+"`; rm .count;
     return $count
 }
 
