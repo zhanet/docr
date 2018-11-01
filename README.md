@@ -7,9 +7,12 @@ Docr - 使用 Docker 封装的 OCR 服务。
 
 ### 安装 Docker
 
-访问 Docker 官网 https://www.docker.com/ 或从以下 URL 下载 Docker 并安装，也可以使用软件包管理器将 Docker 安装到您的系统上：
+访问 Docker 官网 https://www.docker.com/ 或从以下 URL 下载安装：
 
 https://www.docker.com/community-edition
+
+也可以使用软件包管理器将 Docker 安装到您的系统上。
+
 
 #### MacOS
 
@@ -51,6 +54,12 @@ $ git clone https://github.com/zhanet/docr.git && cd docr
 
 ```sh
 $ ./start.sh
+```
+
+### 使用 Docker Compose
+
+```sh
+$ docker-compose up
 ```
 
 
