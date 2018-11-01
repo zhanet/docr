@@ -2,28 +2,49 @@ version: '3.1'
 
 services:
 
+  postgres:
+    image: mdillon/postgis
+    container_name: docr-postgres
+    network_mode: "bridge"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      TZ: Asia/Shanghai
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
   pgadmin:
     image: dpage/pgadmin4
+    container_name: docr-pgadmin
+    network_mode: "bridge"
     restart: always
     depends_on:
       - postgres
     ports:
-      - 5050:80
+      - "5050:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: postgres@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: postgres
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
-  postgres:
-    image: mdillon/postgis
+  docr:
+    image: zhanet/docr
+    container_name: docr
+    network_mode: "bridge"
     restart: always
+    links:
+      - postgres
+    depends_on:
+      - postgres
     ports:
-      - "5432:5432"
+      - "33322:22"
     environment:
-      POSTGRES_PASSWORD: postgres
+      TZ: Asia/Shanghai
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - $PWD/ocr:/ocr-files
 
 volumes:
   pgadmin-data:
